@@ -16,7 +16,7 @@
 class Solution {
     int count=0;
     public int goodNodes(TreeNode root) {
-        goodNodes(root, root.val);   
+        goodNodes(root, -10000);   
         return count;
     }
     
