@@ -6,28 +6,20 @@ class Solution {
         for(i=0;i<matrix.length;i++)
          for(j=0;j<matrix[0].length;j++)
             dup[i][j] = matrix[i][j];
-        
-        Set<Integer> si = new HashSet();
-         Set<Integer> sj = new HashSet();
+      
         for(i=0;i<dup.length;i++)
         {
             for(j=0;j<dup[0].length;j++)
             {
                 if(dup[i][j]==0)
                 {  
-                   si.add(i);
-                   sj.add(j);
+                   for(int k=0;k<dup[0].length;k++)
+                     matrix[i][k]=0;
+                   for(int h=0;h<dup.length;h++)
+                     matrix[h][j]=0;
                 }
             }
         }
         
-        for(i=0;i<dup.length;i++)
-        {
-            for(j=0;j<dup[0].length;j++)
-            {
-                if(si.contains(i) || sj.contains(j))
-                    matrix[i][j]=0;
-            }
-        }
     }
 }
