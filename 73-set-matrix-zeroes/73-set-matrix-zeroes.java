@@ -1,21 +1,22 @@
 class Solution {
     public void setZeroes(int[][] matrix) {
         
-        int i,j;
-        int dup[][] = new int[matrix.length][matrix[0].length];
+        int i,j,l=0;
+        int dup[] = new int[matrix.length*matrix[0].length];
         for(i=0;i<matrix.length;i++)
          for(j=0;j<matrix[0].length;j++)
-            dup[i][j] = matrix[i][j];
+            dup[l++] = matrix[i][j];
       
-        for(i=0;i<dup.length;i++)
+        l=0;
+        for(i=0;i<matrix.length;i++)
         {
-            for(j=0;j<dup[0].length;j++)
+            for(j=0;j<matrix[0].length;j++)
             {
-                if(dup[i][j]==0)
+                if(dup[l++]==0)
                 {  
-                   for(int k=0;k<dup[0].length;k++)
+                   for(int k=0;k<matrix[0].length;k++)
                      matrix[i][k]=0;
-                   for(int h=0;h<dup.length;h++)
+                   for(int h=0;h<matrix.length;h++)
                      matrix[h][j]=0;
                 }
             }
