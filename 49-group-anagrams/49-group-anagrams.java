@@ -2,9 +2,9 @@ import java.util.Map.*;
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
         int len=strs.length;
-        List<List<String>> l =new ArrayList();
+        
         if(len==0)
-            return l;
+            return new ArrayList();;
         Map<String,List<String>> hm = new HashMap();
        for(String s: strs)
        {
@@ -22,10 +22,11 @@ class Solution {
            
        }
     
-       for(Entry<String,List<String>> e : hm.entrySet())
-       {
-           l.add(e.getValue());
-       }
+       // for(Entry<String,List<String>> e : hm.entrySet())
+       // {
+       //     l.add(e.getValue());
+       // }
+       List<List<String>> l =new ArrayList<>(hm.values());
         return l;
     }
 }
