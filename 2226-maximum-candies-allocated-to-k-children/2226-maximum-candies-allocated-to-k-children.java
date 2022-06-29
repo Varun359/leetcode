@@ -1,16 +1,13 @@
 class Solution {
-    public boolean candyCount(int[] arr, int n, long k)
+    public long candyCount(int[] arr, int n)
     {
         long count=0;
         if(n==0)
-            return true;
+            return 0;
+       
         for(int i=0;i<arr.length;i++)
-        {
             count+=arr[i]/n;
-            if(count>=k)
-              return true;
-        }
-        return false;
+        return count;
     }
     public int maximumCandies(int[] candies, long k) {
         
@@ -26,12 +23,18 @@ class Solution {
         int mid=0;
         while(l<h)
         {
-            mid  = l+(h-l)/2;
-            if(candyCount(candies,mid,k))
+            mid  = (h-l)/2+l;
+            long count = candyCount(candies,mid);
+            if(count>=k || count==0)
+            {
                 l = mid+1;
+            }
             else
                 h = mid;
         }
-        return candyCount(candies,l,k) ? l :  l-1;       
+        if(l==0)
+            return l;
+        long r=candyCount(candies,l);
+        return r==k ? l :  l-1;       
     }
 }
