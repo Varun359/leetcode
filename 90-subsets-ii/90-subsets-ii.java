@@ -16,12 +16,11 @@ class Solution {
     
     public List<List<Integer>> subsetsWithDup(int[] nums) {
         
-      
         
-        List<List<Integer>> final_set = new ArrayList();
+        List<List<Integer>> final_list = new ArrayList();
         Arrays.sort(nums);
-        findSubsets(nums, 0, nums.length, final_set, new ArrayList());
+        findSubsets(nums, 0, nums.length, final_list, new ArrayList());
         
-        return final_set;
+        return final_list;
     }
 }
