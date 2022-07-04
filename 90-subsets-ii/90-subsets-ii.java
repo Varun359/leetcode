@@ -1,17 +1,16 @@
 class Solution {
     public static void findSubsets(int nums[], int i, int n, List<List<Integer>> final_set, List<Integer> s)
     {
-        if(i==n && !final_set.contains(s))
+     
+        final_set.add(new ArrayList<>(s));    
+        for(int j=i;j<n;j++)
         {
-            final_set.add(new ArrayList<>(s));
-            return;
-        }
-        if(i==n)
-            return;
-        s.add(nums[i]);
-        findSubsets(nums, i+1, n, final_set, s);
+        if(i!=j && nums[j]==nums[j-1])
+            continue;
+        s.add(nums[j]);
+        findSubsets(nums, j+1, n, final_set, s);
         s.remove(s.size()-1);
-        findSubsets(nums, i+1, n, final_set, s);
+        }
     }
     
     public List<List<Integer>> subsetsWithDup(int[] nums) {
@@ -20,7 +19,6 @@ class Solution {
         List<List<Integer>> final_list = new ArrayList();
         Arrays.sort(nums);
         findSubsets(nums, 0, nums.length, final_list, new ArrayList());
-        
         return final_list;
     }
 }
