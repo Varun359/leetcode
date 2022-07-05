@@ -9,29 +9,29 @@ class Solution {
         }
         return true;
     }
-    public static void findPalindrome(String s, int i,int j,int length, List<List<String>> result,List<String> l, int len)
+    public static void findPalindrome(String s, int i,int length, List<List<String>> result,List<String> l)
     {
-        if(j==length)
-        {   //if(i<s.length() && isPalindrome(s.substring(i,j-1)))\
-            System.out.println(l+" "+len);
-            if(len==length)
+        if(i==length)
+        {   
              result.add(new ArrayList<>(l));
-            return;
+             return;
         }
-        if(isPalindrome(s.substring(i, j+1)))
+        for(int index=i;index<length;index++)
         {
-            l.add(s.substring(i, j+1));
-            int index=j;
-            findPalindrome(s, index+1,j+1, length, result, l, len+(j-i)+1);
+          System.out.println(s.substring(i, index+1));
+          if(isPalindrome(s.substring(i, index+1)))
+         {
+            l.add(s.substring(i, index+1));
+            findPalindrome(s, index+1, length, result, l);
             l.remove(l.size()-1);
         }
-            findPalindrome(s, i , j+1, length, result, l, len);
+       }
     }
     public List<List<String>> partition(String s) {
         
         List<List<String>> result = new ArrayList();
         
-        findPalindrome(s, 0,0, s.length(), result, new ArrayList<String>(), 0);
+        findPalindrome(s, 0, s.length(), result, new ArrayList<String>());
         
         return result;
     }
