@@ -10,29 +10,54 @@
  */
 class Solution {
     public int pairSum(ListNode head) {
-        
+    
         if(head == null)
             return 0;
-        List<Integer> l = new ArrayList();
         ListNode start = head;
+        int len = 0;
         while(start!=null)
         {
-            l.add(start.val);
+            len++;
             start = start.next;
         }
+       
+        int i=0;
+        start = head;
+        ListNode next_node=null, prev_node = null, curr_node = head;
+        while(i<len/2)
+        {
+            next_node = curr_node.next;
+            curr_node.next= prev_node;
+            prev_node = curr_node;
+            curr_node = next_node;
+            i++;
+        }
+        start.next = curr_node;
+        head = prev_node;
+        start = head;
         
-        int i=0,j=l.size()-1;
+        i=0;
+        
+        while(i<len/2)
+        {
+            start = start.next;
+            i++;
+        }
         
         int sum = Integer.MIN_VALUE;
-        while(i<j)
+        //System.out.println(start.val);
+        i=0;
+        while(i<len/2)
         {
-            int s = l.get(i)+l.get(j);
+            int s = head.val + start.val;
+             //System.out.println(s);
             if(s>sum)
-                sum=s;
+                sum = s;
+            
+            head=head.next;
+            start = start.next;
             i++;
-            j--;
         }
         return sum;
-            
     }
 }
