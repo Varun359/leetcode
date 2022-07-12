@@ -9,56 +9,25 @@
  * }
  */
 class Solution {
-    public ListNode reverse(ListNode mid)
-    {
-        while(mid == null || mid.next == null) return mid; 
-        ListNode prev = null;
-        while(mid!=null)
-        {
-            ListNode temp = mid.next;
-            mid.next = prev;
-            prev = mid;
-            mid = temp;
-        }
-        return prev;
-    }
     public boolean isPalindrome(ListNode head) {
-        if(head == null || head.next == null)
+        String s="";
+        if(head==null || head.next == null)
             return true;
-        int len =0;
-        ListNode iter = head;
-        while(iter!=null)
+        StringBuffer sb=new StringBuffer(s);
+        while(head!=null)
         {
-            iter = iter.next;
-            len++;
+            sb.append(head.val);
+            head=head.next;
         }
+        String one=sb.toString();
+        sb.reverse(); 
+        String two=sb.toString();
+        System.out.println(one);
+        System.out.println(two);
+        if(one.compareTo(two)==0)
+            return true;
+        else
+            return false;
         
-        ListNode slow = head, fast = head;
-        ListNode prev = null;
-        while(fast!=null && fast.next!=null)
-        {
-            prev = slow;
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-        prev.next = null;
-        
-        
-        ListNode rev = reverse(slow);
-        
-       
-        while(head!=null && rev!=null)
-        {
-            if(head.val != rev.val)
-            {
-               break;
-            }
-            head = head.next;
-            rev = rev.next;
-            
-        }
-        if(head==null || rev==null)
-             return true;
-        return false;
     }
 }
