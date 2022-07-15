@@ -30,10 +30,10 @@ class Solution {
         currSum += root.val;
         // System.out.println(currSum);
         l.add(root.val);
-        if(currSum == target && root.left == null && root.right == null)
+        if(root.left == null && root.right == null)
         {
-            // System.out.println(l);
-            res.add(new ArrayList<>(l));
+            if(currSum == target)
+               res.add(new ArrayList<>(l));
         }
         pathSumLists(root.left, currSum, target, l);
         pathSumLists(root.right, currSum, target, l);
