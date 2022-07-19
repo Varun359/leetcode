@@ -14,42 +14,28 @@
  * }
  */
 class Solution {
-    int arr[];
+    int count = 0;
+    int h = 0;
     public int kthSmallest(TreeNode root, int k) {
         
         if(root == null)
             return 0;
         if(root.left == null && root.right == null && k==1)
             return root.val;
-        arr = new int[10000];
-        
-        for(int i=0;i<10000;i++)
-            arr[i] = -1;
-        findAllValues(root); 
-        
-        int j = 0;
-        int index = 0;
-        for(int i=0;i<10000;i++)
-        {
-            if(arr[i] != -1)
-            {  j++;
-               if(j == k)
-                   break;
-            }
-             index++; 
-           
-        }
-        if(j!=0)
-          return arr[index];
-        return 0;
+         findAllValues(root, k);
+         return h;
     }
     
-    public void findAllValues(TreeNode root)
+    public void findAllValues(TreeNode root, int k)
     {
         if(root == null)
             return;
-        findAllValues(root.left);
-        findAllValues(root.right);
-        arr[root.val] = root.val;
+        findAllValues(root.left,k);
+        count++;
+         if(count == k)
+         {
+             h = root.val;
+         }
+        findAllValues(root.right,k);
     }
 }
