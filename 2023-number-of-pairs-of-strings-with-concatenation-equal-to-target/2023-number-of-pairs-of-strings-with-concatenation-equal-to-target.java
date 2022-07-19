@@ -2,7 +2,6 @@ class Solution {
 
     public int numOfPairs(String[] nums, String target) {
        
-        Set<String> hs = new HashSet();
         int count = 0;
         int len = nums.length;
         for(int i = 0;i < len;i++)
