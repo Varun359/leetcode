@@ -1,38 +1,43 @@
-public class Solution {
+class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        ArrayList[] graph = new ArrayList[numCourses];
-        int[] degree = new int[numCourses];
-        Queue queue = new LinkedList();
-        int count=0;
-        
-        for(int i=0;i<numCourses;i++)
-            graph[i] = new ArrayList();
-            
-        for(int i=0; i<prerequisites.length;i++){
-            degree[prerequisites[i][1]]++;
-            graph[prerequisites[i][0]].add(prerequisites[i][1]);
-        }
-        for(int i=0; i<degree.length;i++){
-            if(degree[i] == 0){
-                queue.add(i);
-                count++;
-            }
+      HashMap<Integer, List<Integer>> map = new HashMap<>();
+        for(int n=0; n<numCourses;n++){
+            map.put(n,new ArrayList());
         }
         
-        while(queue.size() != 0){
-            int course = (int)queue.poll();
-            for(int i=0; i<graph[course].size();i++){
-                int pointer = (int)graph[course].get(i);
-                degree[pointer]--;
-                if(degree[pointer] == 0){
-                    queue.add(pointer);
-                    count++;
-                }
-            }
+       HashSet<Integer> visited = new HashSet<>(numCourses);
+        for(int i =0; i< prerequisites.length; i++){
+            map.get(prerequisites[i][0]).add(prerequisites[i][1]);
         }
-        if(count == numCourses)
+        for(int n=0; n<numCourses;n++){
+            if(!dfs(map,visited,n)){
+                return false;
+            }
+        }       
+        return true;        
+    }
+    
+    private boolean dfs(HashMap<Integer,List<Integer>> map, HashSet<Integer> visited, int course) {
+        // if the prereq for the course is empty we know we can complete it so return true
+        if(map.get(course).isEmpty()){
             return true;
-        else    
+        }
+        // if set has the course cycle detected return false
+        if(visited.contains(course)){
             return false;
+        }
+        else {
+            visited.add(course);
+        }
+        
+        // For each course get its prereq and do DFS on them
+        for(int i =0; i< map.get(course).size();i++){
+            if(!dfs(map,visited,map.get(course).get(i)))
+            return false;        
+        }
+        visited.remove(course);
+        // we use it in the first check if the list is empty return true
+        map.get(course).clear();
+        return true;    
     }
 }
