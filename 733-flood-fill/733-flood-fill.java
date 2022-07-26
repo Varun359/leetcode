@@ -16,20 +16,20 @@ class Solution {
          int original_color = image[sr][sc];
          row.add(sr);
          col.add(sc);
-        
+         image[sr][sc] = color;
          while(!row.isEmpty())
          {
              int r = row.poll();
              int c = col.poll();
-             image[r][c] = color;
              for(int dir[] : dirs)
              {
                  int curr_row = dir[0] + r;
                  int curr_col = dir[1] + c;
-                 if(curr_row>=0 && curr_row<m && curr_col>=0 && curr_col<n && image[curr_row][curr_col]!=color && image[curr_row][curr_col] == original_color)
+                 if(curr_row>=0 && curr_row<m && curr_col>=0 && curr_col<n && image[curr_row][curr_col] == original_color)
                  {
                      row.add(curr_row);
                      col.add(curr_col);
+                     image[curr_row][curr_col] = color;
                  } 
              }
          }
