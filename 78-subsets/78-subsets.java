@@ -1,13 +1,13 @@
 class Solution {
     public static void findSubsets(int nums[], int i, int n, List<List<Integer>> final_set, List<Integer> s)
     {
-        if(i==n && !final_set.contains(s))
+        if(i==n)
         {
             final_set.add(new ArrayList<>(s));
             return;
         }
-        if(i==n)
-            return;
+        // if(i==n)
+        //     return;
         s.add(nums[i]);
         findSubsets(nums, i+1, n, final_set, s);
         s.remove(s.size()-1);
