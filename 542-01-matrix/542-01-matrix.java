@@ -1,34 +1,45 @@
 public class Solution {
     public int[][] updateMatrix(int[][] matrix) {
-        int m = matrix.length;
-        int n = matrix[0].length;
+     
+        if(matrix == null || matrix.length == 0)
+            return new int[0][0];
         
-        Queue<int[]> queue = new LinkedList<>();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (matrix[i][j] == 0) {
-                    queue.offer(new int[] {i, j});
-                }
-                else {
-                    matrix[i][j] = Integer.MAX_VALUE;
-                }
+        Queue<Integer> row = new LinkedList();
+        Queue<Integer> col = new LinkedList();
+        
+        int dirs[][] = {{0,1},{1,0},{-1,0},{0,-1}};
+        
+        for(int i=0;i<matrix.length;i++)
+         for(int j=0;j<matrix[0].length;j++)
+         {
+             if(matrix[i][j] == 0)
+             {
+                 row.add(i);
+                 col.add(j);
+             }
+             else
+                 matrix[i][j] = -1;
+         }
+        
+        while(!row.isEmpty())
+        {
+            int r = row.poll();
+            int c = col.poll();
+            for(int dir[] : dirs)
+            {
+                int ro = r+dir[0];
+                int co = c+dir[1];
+                
+                if(ro<0 || ro>=matrix.length || co<0 || co>=matrix[0].length || matrix[ro][co] != -1)
+                continue;
+           
+                matrix[ro][co] = matrix[r][c] + 1;
+                row.add(ro);
+                col.add(co);
+           
             }
+           
         }
-        
-        int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-        
-        while (!queue.isEmpty()) {
-            int[] cell = queue.poll();
-            for (int[] d : dirs) {
-                int r = cell[0] + d[0];
-                int c = cell[1] + d[1];
-                if (r < 0 || r >= m || c < 0 || c >= n || 
-                    matrix[r][c] <= matrix[cell[0]][cell[1]] + 1) continue;
-                queue.add(new int[] {r, c});
-                matrix[r][c] = matrix[cell[0]][cell[1]] + 1;
-            }
-        }
-        
         return matrix;
     }
 }
