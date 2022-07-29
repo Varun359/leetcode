@@ -18,7 +18,6 @@ class Solution {
         }
         for(int index=i;index<length;index++)
         {
-          System.out.println(s.substring(i, index+1));
           if(isPalindrome(s.substring(i, index+1)))
          {
             l.add(s.substring(i, index+1));
