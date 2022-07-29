@@ -30,23 +30,17 @@ class Solution {
             while(size-->0)
             {
                 TreeNode e = q.poll();
-                l.add(e.val);
+                if(z == 1) 
+                    l.add(e.val);
+                else
+                    l.add(0, e.val);
                 if(e.left!=null)
-                 q.add(e.left);
+                   q.add(e.left);
                 if(e.right!=null)
-                 q.add(e.right);
+                   q.add(e.right);
             }
-            System.out.println(l);
-            if(z%2 == 0)
-            {
-            List<Integer> rev = new ArrayList();
-            for(int i = l.size()-1; i>=0 ; i--)
-                rev.add(l.get(i));
-                result.add(rev);
-            }
-            else
-              result.add(l);
-            z++;
+            z = -1 * z;
+            result.add(l);
         }
         return result;
     }
