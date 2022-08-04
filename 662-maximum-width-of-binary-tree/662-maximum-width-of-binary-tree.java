@@ -13,6 +13,9 @@
  *     }
  * }
  */
+
+// strivers solution but root node is taken as 1
+
 class Pair{
     int number;
     TreeNode t;
