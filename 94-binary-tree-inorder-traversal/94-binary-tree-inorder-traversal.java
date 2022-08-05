@@ -13,14 +13,44 @@
  *     }
  * }
  */
+
+//Morris traversal Striver
+
 class Solution {
-    List<Integer> l = new ArrayList();
     public List<Integer> inorderTraversal(TreeNode root) {
+        
+        List<Integer> l = new ArrayList();
         if(root == null)
          return l;
-        inorderTraversal(root.left);
-        l.add(root.val);
-        inorderTraversal(root.right);
+        while(root!=null)
+        {
+            
+            if(root.left == null)
+            {
+                l.add(root.val);
+                root = root.right;
+            }
+            else
+            {
+                TreeNode prev = root.left;
+                while(prev.right!=null && prev.right!=root)
+                    prev = prev.right;
+                
+                if(prev.right == null)
+                {
+                        prev.right = root;
+                        root = root.left;
+                }
+                else 
+                 {
+                     prev.right = null;
+                     l.add(root.val);
+                     root = root.right;
+                 }
+                }
+            }
+
+        
         return l;
     }
     
