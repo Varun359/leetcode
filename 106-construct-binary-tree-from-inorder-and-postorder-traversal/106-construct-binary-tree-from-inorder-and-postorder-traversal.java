@@ -22,24 +22,20 @@ class Solution {
         for(int i : inorder)
             hm.put(i, j++);
         
-        int copy[] = new int[postorder.length];
-        j = 0;
-        for(int i = postorder.length - 1; i>=0 ;  i--)
-            copy[j++] = postorder[i];
-        return convert(copy, 0 , copy.length - 1, inorder, 0, inorder.length - 1, hm);
+        return convert(postorder, 0 , postorder.length - 1, inorder, 0, inorder.length - 1, hm);
     
     }
     
-    public TreeNode convert(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd, Map<Integer, Integer> hm)
+    public TreeNode convert(int[] postorder, int postStart, int postEnd, int[] inorder, int inStart, int inEnd, Map<Integer, Integer> hm)
     {
-        if(preStart > preEnd || inStart > inEnd)
+        if(postStart > postEnd || inStart > inEnd)
             return null;
-        TreeNode root = new TreeNode(preorder[preStart]);
+        TreeNode root = new TreeNode(postorder[postEnd]);
         int val = hm.get(root.val);
-        int numsleft = inEnd - val;
+        int numsleft = val - inStart;
         
-        root.right = convert(preorder, preStart+1, preStart+numsleft, inorder, val+1, inEnd, hm );
-        root.left = convert(preorder, preStart+numsleft+1, preEnd, inorder, inStart, val-1, hm);
+        root.left = convert(postorder, postStart , postStart+numsleft-1, inorder, inStart, val-1 , hm );
+        root.right = convert(postorder, postStart+numsleft , postEnd - 1, inorder, val+1, inEnd, hm);
         return root;
     }
 }
