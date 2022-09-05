@@ -20,17 +20,17 @@ class Solution {
                     result = Math.min(result, count);
             }          
         }
-        //System.out.println(j+" "+result);
-        for(int i = j;i<nums.length;i++)
-        {
-            if(sum>=target)
-            {
-                result = Math.min(result, count);
-                sum-=nums[i];
-                count--;
-            }
+//         //System.out.println(j+" "+result);
+//         for(int i = j;i<nums.length;i++)
+//         {
+//             if(sum>=target)
+//             {
+//                 result = Math.min(result, count);
+//                 sum-=nums[i];
+//                 count--;
+//             }
          
-        }
+//         }
         if(result == Integer.MAX_VALUE)
             return 0;
         return result;
