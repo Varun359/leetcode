@@ -19,18 +19,13 @@ class Solution {
         
         int start = 0;
         int end = 0;
-        while(end<s.length())
-        {
-            if(arr[s.charAt(end) - 'a'] <k)
-            {
-                result = Math.max(result, longestSubstring(s.substring(start,end),k));
-                start = end+1;
-            }
-            end++;
-        }
-        
-        if(start!=s.length())
-             result = Math.max(result, longestSubstring(s.substring(start),k));
+        while(end<s.length() && (arr[s.charAt(end) - 'a'] >= k))
+         end++;
+        result = Math.max(result, longestSubstring(s.substring(start,end),k));
+          
+        while(end<s.length() && (arr[s.charAt(end) - 'a'] < k))
+         end++;
+        result = Math.max(result, longestSubstring(s.substring(end),k));
       
         return result ;
     }
