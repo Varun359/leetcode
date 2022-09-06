@@ -1,32 +1,42 @@
 class Solution {
     public int longestSubstring(String s, int k) {
         int result = 0;
-        int arr[] = new int[26];
+        // int chars[] = s.toCharArray();
+        int count[] = new int[26];
         
-        for(int i = 0;i<s.length(); i++)
+        for(int h = 0;h<=26;h++)
         {
-            char c = s.charAt(i);
-            int idx = c - 97;
-            arr[idx] = arr[idx]+1;
+            Arrays.fill(count, 0);
+            int unique = 0;
+            int equalToK = 0;
+            int i = 0;
+            int j = 0;
+            while(j<s.length())
+            {
+                if(unique<=h)
+                {
+                    int c = s.charAt(j) - 97;
+                    if(count[c] == 0)
+                        unique++;
+                    count[c]++;
+                    if(count[c] == k)
+                        equalToK++;
+                    j++;
+                }
+                else
+                {
+                    int c = s.charAt(i) - 97;
+                    if(count[c] == k)
+                        equalToK--;
+                    count[c]--;
+                    if(count[c] == 0)
+                        unique--;
+                    i++;
+                }
+                if(unique == h && unique == equalToK)
+                  result = Math.max(j-i, result);
+            }    
         }
-        
-        boolean flag = true;
-        for(int i = 0;i<26;i++)
-            if(arr[i] < k && arr[i] > 0)
-                flag = false;
-        if(flag == true)
-            return s.length();
-        
-        int start = 0;
-        int end = 0;
-        while(end<s.length() && (arr[s.charAt(end) - 'a'] >= k))
-         end++;
-        result = Math.max(result, longestSubstring(s.substring(start,end),k));
-          
-        while(end<s.length() && (arr[s.charAt(end) - 'a'] < k))
-         end++;
-        result = Math.max(result, longestSubstring(s.substring(end),k));
-      
         return result ;
     }
 }
