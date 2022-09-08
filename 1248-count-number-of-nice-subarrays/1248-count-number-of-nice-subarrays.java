@@ -1,27 +1,21 @@
 class Solution {
-    public int numberOfSubarrays(int[] nums, int k) {
-        int count  = 0;
-        int odd_count = 0;
-        int j = 0;
-        int res = 0;
-        for(int i =0;i<nums.length;i++)
-        {
-            if(nums[i] % 2 != 0)
-            {    odd_count++;
-                 count = 0;
+    
+    public int atleastNum(int nums[], int k)
+    {
+          int res = 0, i = 0, n = nums.length;
+        for (int j = 0; j < n; j++) {
+            k -= nums[j] % 2;
+            while (k < 0)
+            {   
+                k += nums[i++] % 2;
             }
-        
-             while(odd_count == k)
-             {
-                 if(nums[j++]%2 == 1)
-                     odd_count--;
-                  count++;
-             }
-            res += count;
             
+            res += j - i + 1;
+           
         }
         return res;
-        
-      
+    }
+    public int numberOfSubarrays(int[] nums, int k) {
+        return atleastNum(nums, k) - atleastNum(nums, k -1);
     }
 }
