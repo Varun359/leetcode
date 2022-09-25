@@ -7,7 +7,7 @@ class Solution {
             hm.put(nums[i],hm.getOrDefault(nums[i],0)+1);
         }
         
-        PriorityQueue<Map.Entry<Integer,Integer>> pq = new PriorityQueue<>((a,b) -> (a.getValue() - b.getValue()));
+        PriorityQueue<Map.Entry<Integer,Integer>> pq = new PriorityQueue<>((a,b) -> Integer.compare(a.getValue(), b.getValue()));
         
         for(Map.Entry<Integer,Integer> entry : hm.entrySet())
         {
