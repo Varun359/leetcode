@@ -21,7 +21,9 @@ class Solution {
         {
             if(root.val>= low && root.val<=high)
                 sum+=root.val;
+            if(root.val>=low)
             inOrder(root.left, low, high);
+            if(root.val<=high)
             inOrder(root.right, low, high);
         }
     }
