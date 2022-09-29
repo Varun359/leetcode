@@ -1,17 +1,25 @@
 class Solution {
-    // class Pair{
-    //     int a;
-    //     int b;
-    //     public Pair(int a, int b)
-    //     {
-    //         this.a = a;
-    //         this.b = b;
-    //     }
-    // }
+    class Pair{
+        int key;
+        int value;
+        public Pair(int a, int b)
+        {
+            this.key = a;
+            this.value = b;
+        }
+    }
+    public class CustomComparator implements Comparator<Pair>{
+        public int compare(Pair a, Pair b)
+        {
+            if(a.key == b.key)
+                return b.value - a.value;
+            return b.key - a.key;
+        }
+    }
     public List<Integer> findClosestElements(int[] arr, int k, int x) {
         
-        PriorityQueue<Pair<Integer, Integer>> pq = 
-                              new PriorityQueue<>((a, b) -> b.getKey() - a.getKey());
+        PriorityQueue<Pair> pq = 
+                              new PriorityQueue<>(new CustomComparator());
         for(int i = 0;i<k;i++)
         {
             int diff = Math.abs(arr[i] - x);
@@ -21,7 +29,7 @@ class Solution {
         for(int i = k;i<arr.length;i++)
         {
             int diff = Math.abs(arr[i] - x);
-            if(pq.peek().getKey() > diff)
+            if(pq.peek().key > diff)
             {
                 pq.poll();
                 pq.add(new Pair(diff,arr[i]));
@@ -30,7 +38,7 @@ class Solution {
         List<Integer> l = new ArrayList();
         for(int i = 0;i<k;i++)
         {
-            l.add(pq.poll().getValue());
+            l.add(pq.poll().value);
         }
         Collections.sort(l);
         return l;
