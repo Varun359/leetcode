@@ -8,22 +8,21 @@ class Solution {
         {
          
             if(!Character.isLetterOrDigit(s.charAt(i)))
-            {  i++;
-               continue;
-            }
-            if(!Character.isLetterOrDigit(s.charAt(j)))
-            {  j--;
-               continue;
-            }
-            if(s.charAt(i) == s.charAt(j))
-            {
-                i++;
-                j--;
-            }
+              i++;
+            else if(!Character.isLetterOrDigit(s.charAt(j)))
+              j--;
             else
             {
-                flag = false;
-                break;
+                if(s.charAt(i) == s.charAt(j))
+                {
+                    i++;
+                    j--;
+                }
+                else
+                {
+                    flag = false;
+                    break;
+                }
             }
         }
         return flag;
